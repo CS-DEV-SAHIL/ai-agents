@@ -1,0 +1,30 @@
+[project]
+name = "blogdon"
+version = "0.1.0"
+description = "blogDon using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[google-genai,litellm,tools]==1.11.1",
+    "python-dotenv>=1.1.1",
+    "streamlit>=1.55.0",
+]
+
+[project.scripts]
+blogdon = "blogdon.main:run"
+run_crew = "blogdon.main:run"
+train = "blogdon.main:train"
+replay = "blogdon.main:replay"
+test = "blogdon.main:test"
+run_with_trigger = "blogdon.main:run_with_trigger"
+ui = "blogdon.streamlit_app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
+
+[tool.uv]
+required-environments = ["sys_platform == 'win32' and platform_machine == 'AMD64'"]

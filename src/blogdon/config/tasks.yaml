@@ -1,0 +1,101 @@
+research_task:
+  description: >
+    Conduct thorough research on {topic}.
+    Gather actionable insights and evidence suitable for a {blog_length} blog post.
+    Keep {keywords} in mind and ensure data is for the current year ({current_year}).
+  expected_output: >
+    A list of relevant bullet points and facts for a {blog_length} blog post.
+  agent: researcher
+
+hook_generation_task:
+  description: >
+    Create 3-5 headlines and a powerful opening hook for a {blog_length} blog about {topic}.
+    The hook should sound like a real person starting a conversation, not a textbook.
+    Incorporate {keywords} where appropriate.
+  expected_output: >
+    Headlines and an introductory paragraph.
+  agent: hook_generator
+
+writing_task:
+  description: >
+    Draft the {blog_length} post on {topic}.
+    Start with the chosen BLOG TITLE and HOOK.
+    CRITICAL ANTI-AI RULES (MUST FOLLOW STRICTLY):
+    1. WRITE LIKE A 5TH STARDARD BOY: Use only extreme simple, daily-use words. 
+    2. CHOPPY SENTENCES: Every sentence must be very short. No commas, no complex grammar. Think: "The city has an airport. The airport has flights."
+    3. NO UPPERCASE: avoid using uppercase letters at the start of sentences. Write mainly in lowercase.
+    4. ZERO SECTION HEADINGS or "Bottom Line" summaries.
+    5. NO EXACT NUMBERS OR PERCENTS: Never use the % symbol or the word "percent". Say "about half" instead of "45 percent". Say "a lot of money" instead of "$10 billion". Say "big companies" instead of listing "Adani, Tata, Mahindra".
+    6. ADD PERSONAL ANECDOTES: Start the post like you visited the place or your friend told you about it. "i went there last week and..." "my buddy is investing there..."
+  expected_output: >
+    A draft in PLAIN TEXT that reads like a 5th grader wrote it in lowercase, with very short sentences.
+  agent: writer
+
+humanizer_task:
+  description: >
+    Rewrite the blog to feel 100% human-written, casual, and natural.
+
+    HARD RULES (must follow strictly):
+
+    1. WRITE LIKE AN INDIAN 5TH STANDARD DULL BOY:
+       Use simple words. Daily use words only. No big words. No camelcase words.
+
+    2. AVOID UPPERCASE:
+       avoid first letter uppercase. Write mainly in lowercase, like a casual text message.
+
+    3. SHORT CHOPPY SENTENCES:
+       Break all long sentences into very short ones. Example: "There is an airport. It handles cargo. It is big."
+
+    4. VAGUE NUMBERS & NO PERCENTS:
+       AI detectors flag dense statistics. Find any exact numbers in the text (like 12 million, 22.5 billion, 65 percent) and REWRITE them vaguely. Never use the word "percent" or the "%" symbol. Use words like "almost half", "a ton of people", "massive returns". Do not list out company names in a row (e.g. Adani, Tata, Mahindra) - just say "huge companies".
+
+    5. BREAK AI PATTERNS:
+       Remove robotic transitions (Moreover, Additionally, Actionable tips).
+
+    6. HUMAN IMPERFECTION & ANECDOTES:
+       Allow bad grammar. Allow run-on thoughts or repetitive sentence starts. Add personal, subjective statements like "i remember when..." or "it honestly blew my mind...".
+
+    Preserve:
+    - Title
+    - Hook
+
+  expected_output: >
+    A highly simplified, lowercase-heavy blog post that feels written by a 5th grader.
+
+  agent: humanizer
+  
+seo_specialist_task:
+  description: >
+    Optimize the humanized {blog_length} blog for {keywords}.
+    Do NOT break the conversational flow or the "human" sound.
+    Ensure the BLOG TITLE and HOOK are still at the top.
+    Do not add meta-description or extra text within the blog body.
+  expected_output: >
+    The SEO-optimized {blog_length} blog post in VERY SIMPLE PLAIN TEXT.
+  agent: seo_specialist
+
+editor_task:
+  description: >
+    Review the optimized blog post and strip out any remaining AI giveaways.
+    MANDATORY RULES:
+    1. KEEP the BLOG TITLE.
+    2. FORCE 5TH GRADE LEVEL: Ensure all sentences are incredibly short and simple. 
+    3. FORCE LOWERCASE: Convert capital letters at the start of sentences to lowercase where possible, to mimic casual texting.
+    4. DUMB DOWN THE DATA: Remove dense statistics. Ban the word "percent" and the "%" symbol altogether. Change "13 to 18 percent" to "great returns". Change lists of companies to "huge international brands". 
+    5. DO NOT FIX GRAMMAR. Bad grammar is good.
+    6. MAKE IT PERSONAL: Ensure the blog sounds like a subjective, personal diary entry, not an informational report. Look out for "In summary" or "Bottom line" and delete them.
+    If it sounds like an AI wrote it, make it messier and simpler.
+  expected_output: >
+    The final {blog_length} blog post as clean PLAIN TEXT that scores 0% on AI detectors due to its extreme simplicity.
+  agent: editor
+
+blog_validation_task:
+  description: >
+    Verify the blog is {blog_length} length and strictly contains ONLY the blog content.
+    MANDATORY: Ensure the BLOG TITLE and HOOK are present at the beginning.
+    Ensure the language used feels completely human, with high burstiness and perplexity.
+    Ensure NO meta-data, NO meta-titles list, NO markdown formatting.
+    At the very end of your response, after the blog content, add a new line with exactly this format: "HUMANIZE_SCORE: [1-10]"
+  expected_output: >
+    The final {blog_length} blog post content starting with the Title and Hook, followed by the HUMANIZE_SCORE line at the end.
+  agent: blog_validator
